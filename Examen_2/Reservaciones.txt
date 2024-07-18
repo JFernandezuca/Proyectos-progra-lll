@@ -1,0 +1,74 @@
+
+
+Hotel: Hotel D
+Nombre: Alexander
+Apellido: Jiménez
+Teléfono: 89551066
+Fecha de Reservación: 2024-07-25
+Observaciones:
+s
+
+Hotel: Hotel C
+Nombre: Alexander
+Apellido: Jiménez
+Teléfono: 89551066
+Fecha de Reservación: 2024-07-20
+Observaciones:
+prueba
+
+Hotel: Hotel A
+Nombre: johnny
+Apellido: fernandez
+Teléfono: 86344655
+Fecha de Reservación: 2024-07-10
+Observaciones:
+prueba
+
+Hotel: Hotel A
+Nombre: johnny
+Apellido: fernandez
+Teléfono: 86344655
+Fecha de Reservación: 2024-07-18
+Observaciones:
+
+
+Hotel: Hotel B
+Nombre: johnny
+Apellido: fernandez
+Teléfono: 86344655
+Fecha de Reservación: 2024-08-02
+Observaciones:
+
+
+Hotel: Hotel E
+Nombre: johnny
+Apellido: fernandez
+Teléfono: 86344655
+Fecha de Reservación: 2024-08-02
+Observaciones:
+
+
+Hotel: Hotel A
+Nombre: johnny
+Apellido: fernandez
+Teléfono: 86344655
+Fecha de Reservación: 2024-08-02
+Observaciones:
+
+
+Hotel: Planet Holliwood
+Nombre: johnny
+Apellido: fernandez
+Teléfono: 86344655
+Fecha de Reservación: 2024-07-16
+Observaciones:
+
+
+Hotel: Crowne Plaza San Jose
+Nombre: johnny
+Apellido: fernandez
+Teléfono: 86344655
+Fecha de Reservación: 2024-07-16
+Observaciones:
+
+
