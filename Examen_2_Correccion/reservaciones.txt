@@ -1,0 +1,8 @@
+Hotel: Hotel Rancho Pacifico
+Nombre: johnny
+Apellido: fernandez
+Teléfono: 86344655
+Fecha de Reservación: 2024-08-01
+Observaciones:
+
+
