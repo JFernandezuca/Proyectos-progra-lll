@@ -36,10 +36,15 @@
 <body>
 
 <?php
+//Define el archivo de reservaciones en una constante al inico de todo el PHP.
+   
+ define('ARCHIVO_RESERVACIONES', 'reservaciones.txt');
 function mostrarReservas() {
-    $archivo = 'reservaciones.txt';
-    if (file_exists($archivo)) {
-        $reservas = file($archivo, FILE_IGNORE_NEW_LINES);
+
+    
+
+    if (file_exists(ARCHIVO_RESERVACIONES)) {
+        $reservas = file(ARCHIVO_RESERVACIONES, FILE_IGNORE_NEW_LINES);
         if (!empty($reservas)) {
             echo "<div class='reservations'><h3>Todas las Reservas</h3>";
             echo "<table>";
@@ -68,11 +73,11 @@ function mostrarReservas() {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['delete_index'])) {
         $delete_index = intval($_POST['delete_index']);
-        $archivo = 'reservaciones.txt';
-        $reservas = file($archivo, FILE_IGNORE_NEW_LINES);
+       
+        $reservas = file(ARCHIVO_RESERVACIONES, FILE_IGNORE_NEW_LINES);
         if (isset($reservas[$delete_index])) {
             unset($reservas[$delete_index]);
-            file_put_contents($archivo, implode("\n", $reservas) . "\n");
+            file_put_contents(ARCHIVO_RESERVACIONES, implode("\n", $reservas) . "\n");
             header("Location: " . basename($_SERVER['PHP_SELF']));
             exit();
         } else {
@@ -88,8 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         if (!empty($datos_reserva)) {
             $reservacion = implode(", ", $datos_reserva) . "\n";
-            $archivo = 'reservaciones.txt';
-            if (file_put_contents($archivo, $reservacion, FILE_APPEND | LOCK_EX)) {
+            if (file_put_contents(ARCHIVO_RESERVACIONES, $reservacion, FILE_APPEND | LOCK_EX)) {
                 header("Location: " . basename($_SERVER['PHP_SELF']));
                 exit();
             } else {
@@ -115,12 +119,18 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             <option value="Hotel Sword">Hotel Sword</option>
             <option value="Hotel Pink">Hotel Pink</option>
         </select>
+        <label for="nombre">Nombre </label>
         <input type="text" name="nombre" placeholder="Nombre" required>
+        <label for="apellido">Apellido</label>
         <input type="text" name="apellido" placeholder="Apellido" required>
+        <label for="telefono">Teléfono</label>
         <input type="text" name="telefono" placeholder="Teléfono" required>
+        <label for="fecha_reservacion">Fecha reservación</label>
         <input type="date" name="fecha_reservacion" required>
+        <label for="fecha_salida">Fecha salida</label>
         <input type="date" name="fecha_salida" required>
         <input type="submit" value="Reservar">
+
     </form>
 </div>
 
