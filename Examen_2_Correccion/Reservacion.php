@@ -10,16 +10,21 @@ class Reservacion
     private $telefono;
     private $fecha;
     private $observaciones;
+    private $archivoReservas = 'reservaciones.txt';
 
     /* La función pública nos permite invocarla y utilizarla durante cualquier fracción del código con una tarea específica, en este caso un constructor visto en la lectura */
 
     public function __construct($hotel, $nombre, $apellido, $telefono, $fecha, $observaciones)
     {
-        $this->hotel = $hotel;
+        if (empty($hotel) || empty($nombre) || empty($apellido) || empty($telefono) || empty($fecha)) {
+            throw new Exception("Por favor completa todos los campos obligatorios.");
+        }
+        
+        $this->hotel = htmlspecialchars($hotel);
         $this->nombre = htmlspecialchars($nombre);
         $this->apellido = htmlspecialchars($apellido);
         $this->telefono = htmlspecialchars($telefono);
-        $this->fecha = $fecha;
+        $this->fecha = htmlspecialchars($fecha);
         $this->observaciones = htmlspecialchars($observaciones);
     }
 
@@ -34,13 +39,12 @@ class Reservacion
         $reserva .= "Fecha de Reservación: $this->fecha\n";
         $reserva .= "Observaciones:\n$this->observaciones\n\n";
 
-        $archivo = 'reservaciones.txt';
-        file_put_contents($archivo, $reserva, FILE_APPEND);
+        file_put_contents($this->archivoReservas, $reserva, FILE_APPEND);
     }
 
     /* Esta función nos permite mediante echo mostrar los datos almacenados en la BD en forma de output */
 
-    public function mostrarDetalles()
+    public function mostrarDetalleNuevaReservacion()
     {
         echo '<h2>¡Solicitud de Reservación enviada!</h2>';
         echo '<p>Gracias por enviar tu solicitud.</p>';
@@ -54,6 +58,17 @@ class Reservacion
         echo '<tr><th>Observaciones</th><td>' . nl2br(htmlspecialchars($this->observaciones)) . '</td></tr>';
         echo '</table>';
     }
+
+    public function mostrarTodasLasReservaciones()
+    {
+        if (file_exists($this->archivoReservas)) {
+            $contenido = file_get_contents($this->archivoReservas);
+            echo '<h3>Todas las Reservaciones:</h3>';
+            echo '<pre>' . htmlspecialchars($contenido) . '</pre>';
+        } else {
+            echo '<p>No hay reservaciones.</p>';
+        }
+    }
 }
 
 /* Los ciclos preventivos son muy utiles ya que ordenan la parte grafica al depurar errores */
@@ -66,14 +81,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fecha = $_POST['fecha'] ?? '';
     $observaciones = $_POST['observaciones'] ?? '';
 
-    if (!empty($hotel) && !empty($nombre) && !empty($apellido) && !empty($telefono) && !empty($fecha)) {
         $reservacion = new Reservacion($hotel, $nombre, $apellido, $telefono, $fecha, $observaciones);
         $reservacion->guardar();
-        $reservacion->mostrarDetalles();
-    } else {
-        echo '<h2>Error en la solicitud de reservación</h2>';
-        echo '<p>Por favor completa todos los campos obligatorios.</p>';
-    }
+        $reservacion->mostrarDetalleNuevaReservacion();
+        $reservacion->mostrarTodasLasReservaciones();
 } else {
     echo '<h2>Error en la solicitud de reservación</h2>';
     echo '<p>Ha ocurrido un error en el envío de datos.</p>';
